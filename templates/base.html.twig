@@ -15,7 +15,8 @@
             <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% endblock %}
     </head>
-    <body style="background-image:url({{ asset('images/dark-honeycomb.png') }})">
+    
+    <body style="color:white;background-image:url({{ asset('images/dark-honeycomb.png') }})">
         {% block navbar %}
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="{{ path('homepage') }}">Photographers Hub</a>
@@ -55,13 +56,17 @@
             </nav>
         {% endblock %}
 
-        {% block body %}{% endblock %}
+        {% include "flash_messages.html.twig" %}
+
+        {% block body %}{% endblock %}        
 
         <footer class="footer">
             {% block footer %}
                 <p class="text-muted">© Lukas Keževičius 2019</p>
             {% endblock %}
         </footer>
+
+
 
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
