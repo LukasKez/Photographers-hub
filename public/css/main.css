@@ -10,8 +10,8 @@
   text-align: center;
 }
 
-label.required:before {
-  content: "* ";
+label.required:after {
+  content: "*";
   color:red;
 }
 
