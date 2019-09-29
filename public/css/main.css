@@ -9,3 +9,13 @@
   background-color: rgb(52 58 64);
   text-align: center;
 }
+
+label.required:before {
+  content: "* ";
+  color:red;
+}
+
+.form-login {
+  max-width: 360px;
+  margin: auto;
+}

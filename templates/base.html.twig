@@ -56,16 +56,17 @@
             </nav>
         {% endblock %}
 
-        {% include "flash_messages.html.twig" %}
+        <div class="container my-5 py-2">
+            {% include "flash_messages.html.twig" %}
 
-        {% block body %}{% endblock %}        
+            {% block body %}{% endblock %}
+        </div>
 
         <footer class="footer">
             {% block footer %}
                 <p class="text-muted">© Lukas Keževičius 2019</p>
             {% endblock %}
         </footer>
-
 
 
         {% block javascripts %}
