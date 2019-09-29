@@ -11,8 +11,8 @@
         {% block stylesheets %}
             <link
             rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">-->
             <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+            <script src="https://kit.fontawesome.com/7c1598e4e5.js" crossorigin="anonymous"></script>
         {% endblock %}
     </head>
     
@@ -64,7 +64,12 @@
 
         <footer class="footer">
             {% block footer %}
-                <p class="text-muted">© Lukas Keževičius 2019</p>
+                <p class="text-muted">
+                Made by Lukas Keževičius. Contact me: 
+                <a href="https://github.com/LukasKez" class="text-muted fab fa-linkedin"></a>
+                <a href="https://facebook.com/l.kezevicius" class="text-muted fab fa-facebook-square"></a>
+                <a href="https://instagram.com/kezevicius" class="text-muted fab fa-instagram"></a>
+                </p>
             {% endblock %}
         </footer>
 
