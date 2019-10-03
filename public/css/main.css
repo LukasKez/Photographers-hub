@@ -10,10 +10,11 @@
   text-align: center;
 }
 
-label.required:after {
-  content: "*";
+label.required:before {
+  content: "* ";
   color:red;
 }
+
 
 .form-login {
   max-width: 360px;
