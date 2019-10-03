@@ -25,7 +25,7 @@ class RegisterFormType extends AbstractType
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
-                //'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'The password fields must match',
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
