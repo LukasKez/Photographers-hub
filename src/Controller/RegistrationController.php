@@ -7,13 +7,15 @@ use App\Form\RegisterFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="register")
+     * @Route("/register", name="app_register")
      */
-    public function register(Request $request)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $form = $this->createForm(RegisterFormType::class);
 
@@ -22,7 +24,10 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
-            $user->setPasswordHash(password_hash($user->getPasswordHash(),PASSWORD_DEFAULT));
+            $user->setPassword($passwordEncoder->encodePassword(
+                $user,
+                $form->get('password_hash')->getData()
+            ));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
