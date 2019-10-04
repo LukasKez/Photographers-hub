@@ -23,6 +23,17 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=20, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9]+$/",
+     *     message="Your username has to contain only alphanumeric values"
+     * )
+     * @Assert\Length(
+     *     min = 4,
+     *     max = 20,
+     *     minMessage = "Your username has to contain at least 4 characters",
+     *     maxMessage = "Your username can't contain more than 20 characters"
+     * )
      */
     private $username;
     /**
@@ -38,11 +49,27 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     * @Assert\Length(
+     *     max = 64,
+     *     maxMessage="Your email can't contain more than 64 characters"
+     * )
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=32, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Length(
+     *     min=2,
+     *     max = 20,
+     *     minMessage="Your first name has to contain at least 2 characters",
+     *     maxMessage="Your first name can't contain more than 20 characters"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z]+$/",
+     *     message="Your name has to contain only alphabetic values"
+     * )
      */
     private $name;
 
