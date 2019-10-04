@@ -33,8 +33,8 @@ class RegistrationController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'User '. $user->getUsername(). ' createed successfully!');
-            return $this->redirectToRoute('app_homepage');
+            $this->addFlash('success', 'User '. $user->getUsername(). ' created successfully!');
+            return $this->redirectToRoute('app_index');
         }
 
         return $this->render('Security/register.html.twig', [
