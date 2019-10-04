@@ -11,12 +11,13 @@
 }
 
 label.required:before {
-  content: "* ";
+  content: "*";
   color:red;
 }
-
 
 .form-login {
   max-width: 360px;
   margin: auto;
+  padding: 20px;
+  background: #313131;
 }
