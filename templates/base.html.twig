@@ -35,9 +35,12 @@
                                 Photographers
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Ameg Photo</a>
+                                {#{% for user in users %}
+                                    <a href="#">{{ user.username }}</a><br>
+                                {% endfor %}#}
+                                {#<a class="dropdown-item" href="#">Ameg Photo</a>
                                 <a class="dropdown-item" href="#">Photographer 2</a>
-                                <a class="dropdown-item" href="#">Photographer 3</a>
+                                <a class="dropdown-item" href="#">Photographer 3</a>#}
                             </div>
                         </li>
                         <li class="nav-item">

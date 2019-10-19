@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,8 +13,13 @@ class IndexController extends AbstractController
      */
     public function show()
     {
-        
 
-        return $this->render('index.html.twig');
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)->findAll();
+
+        return $this->render('index.html.twig',
+            [
+                'users' => $users,
+            ]);
     }
 }
