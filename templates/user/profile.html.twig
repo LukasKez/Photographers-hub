@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1 class="dark-text">{{ user.username }} profile</h1>
+    <div id="grad1"></div>
+    <br>
+    <h5>Name: {{ user.name }}</h5>
+    {% if user.avatar %}
+    <img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="img-fluid mb-4">
+    {% endif %}
+    <br><br>
+    {% if app.user and app.user.id == user.id %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" value="Update" class="btn btn-success"/>
+        </div>
+        {{ form_end(form) }}
+        <br>
+        <br>
+        <a href="#" class="btn btn-primary">Change password</a>
+        <br>
+        <br>
+        <h4>Change your profile picture:</h4>
+        {{ form_start(form_upload) }}
+        {{ form_widget(form_upload) }}
+        <div>
+            <input type="submit" value="Upload" class="btn btn-success"/>
+        </div>
+        {{ form_end(form_upload) }}
+
+    {% endif %}
+
+{% endblock %}

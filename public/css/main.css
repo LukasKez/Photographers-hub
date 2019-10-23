@@ -10,6 +10,9 @@
   text-align: center;
 }
 
+.dark-text {
+  color: rgb(117 125 174);
+}
 label.required:before {
   content: "*";
   color:red;
@@ -20,4 +23,10 @@ label.required:before {
   margin: auto;
   padding: 20px;
   background: #313131;
+}
+
+#grad1 {
+  height: 3px;
+  background-color: gray; /* For browsers that do not support gradients */
+  background-image: linear-gradient(90deg, rgb(117 125 174), rgb(52 58 64)); /* Standard syntax (must be last) */
 }
