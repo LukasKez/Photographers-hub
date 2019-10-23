@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -79,7 +80,7 @@ class User implements UserInterface
     private $isPhotographer;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string")
      */
     private $avatar;
 
@@ -192,12 +193,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getAvatar()
     {
         return $this->avatar;
     }
 
-    public function setAvatar(?string $avatar): self
+    public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
 
