@@ -3,52 +3,44 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\IsPhotographerFormType;
-use App\Form\UploadAvatarFormType;
+use App\Form\UserProfileFormType;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/user/{userID}", name="app_userProfile")
      */
-    public function profile($userID, Request $request)
+    public function profile($userID, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($userID);
+
         //authenticate
+
         if ($user == null) {
             return $this->redirectToRoute('app_index');
         }
-        //----------------------------------------------------------------------------
-        //change status form
-        $form = $this->createForm(IsPhotographerFormType::class, $user);
-        $form->handleRequest($request);
 
+        $form = $this->createForm(UserProfileFormType::class, $user);
+        $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid())
         {
             $user = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-        }
-        //---------------------------------------------------------------------------
-        //upload profile picture form
-        $form_upload=$this->createForm(UploadAvatarFormType::class, $user);
-        $form_upload->handleRequest($request);
-
-        if ($form_upload->isSubmitted() && $form_upload->isValid())
-        {
             $fileSystem = new Filesystem();
             $oldAvatar = $user->getAvatar();
 
             /** @var UploadedFile $file */
-            $file = $form_upload['avatar']->getData();
+            $file = $form['avatar']->getData();
+            $password = $form['password_hash']->getData();
 
             if ($file)
             {
@@ -65,19 +57,29 @@ class UserController extends AbstractController
                 );
 
                 $user->setAvatar($fileName);
-
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-
                 $this->addFlash('success', 'Avatar changed successfully');
             }
-        }
+            if ($password)
+            {
+                $currentPsw = $form['current_password']->getData();
+                if ($passwordEncoder->isPasswordValid($user, $currentPsw))
+                {
+                    $user->setPassword($passwordEncoder->encodePassword($user, $password));
+                    $this->addFlash('success', 'Password changed successfully');
+                }
+                else
+                {
+                    $this->addFlash('danger', 'To change password, enter your old password');
+                }
+            }
 
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
-            'form_upload' => $form_upload->createView(),
         ]);
     }
 
