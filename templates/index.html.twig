@@ -7,4 +7,8 @@
     <p>Here you will be able to find the most creative and skilled photographers. Want to become a part of this
     community? Go ahead and <a href="{{ path('app_register') }}">register</a>!</p>
 
+    {% for user in users %}
+        <a href="{{ path('app_userProfile', { 'userName' : user.username } ) }}">{{ user.username }}</a><br>
+    {% endfor %}
+
 {% endblock %}
