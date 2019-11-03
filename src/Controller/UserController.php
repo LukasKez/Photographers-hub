@@ -16,11 +16,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user/{userID}", name="app_userProfile")
+     * @Route("/user/{userName}", name="app_userProfile")
      */
-    public function profile($userID, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function profile($userName, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->find($userID);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $userName]);
 
         //authenticate
 
@@ -81,6 +81,37 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/users", name="app_userList")
+     */
+    public function userList()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+//        $x = $this->getDoctrine()->getRepository(User::class)->find(3);
+//        $rolex = $x->getRoles();
+//        dump($rolex);exit;
+        return $this->render('user/userList.html.twig', [
+        'users' => $users
+        ]);
+    }
+
+    /**
+ * @Route("/admin/user/{id}/delete", name="app_userDelete")
+ */
+    public function userDelete($id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $user = $manager->getRepository(User::class)->find($id);
+        if ($user != null) {
+            $manager->remove($user);
+            $manager->flush();
+            $this->addFlash('success', 'User "' . $user->getUsername() . '" successfully deleted');
+        }
+        return $this->redirectToRoute("app_userList");
     }
 
     /**

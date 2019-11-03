@@ -9,7 +9,7 @@
     <div class="row mb-3">
         <div class="col-8"><h5>Name: {{ user.name }}</h5></div>
         {% if user.avatar %}
-            <div clas="col-4"><img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="img-fluid mb-4" width="300" height="300"></div>
+            <div class="col-4"><img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="img-fluid mb-4" width="300" height="300"></div>
         {% endif %}
         </div>
         {% if app.user and app.user.id == user.id %}    
@@ -23,12 +23,29 @@
     {% if app.user and app.user.id == user.id %}    
     <h3>Update your profile:</h3>
     <div id="grad1"></div>
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
+        <button class="btn btn-info my-2" onclick="showForm()">Show/hide form</button>
+        {{ form_start(form, {'attr': {'id': 'hidden-form', 'style':'display:none'}}) }}
+        {{ form_widget(form)}}
         <div>
-            <input type="submit" value="Update" class="btn btn-success"/>
+            <input type="submit" value="Update" id="user_profile_form-button" class="btn btn-success"/>
         </div>
         {{ form_end(form) }}
         <br>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function showForm() {
+            var form = document.getElementById("hidden-form");
+            if (form.style.display === "none") {
+                form.style.display = "block";
+                //bttn.style.display = "block";
+            } else {
+                form.style.display = "none";
+                //bttn.style.display = "none";
+            }
+        }
+    </script>
 {% endblock %}

@@ -13,6 +13,7 @@
             rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
             <link rel="stylesheet" href="{{ asset('css/main.css') }}">
             <script src="https://kit.fontawesome.com/7c1598e4e5.js" crossorigin="anonymous"></script>
+            <link rel="icon" href="{{ asset('images/favicon.ico') }}">
         {% endblock %}
     </head>
     
@@ -30,19 +31,16 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Photographers
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                {#{% for user in users %}
-                                    <a href="#">{{ user.username }}</a><br>
-                                {% endfor %}#}
-                                {#<a class="dropdown-item" href="#">Ameg Photo</a>
-                                <a class="dropdown-item" href="#">Photographer 2</a>
-                                <a class="dropdown-item" href="#">Photographer 3</a>#}
-                            </div>
-                        </li>
+                        {#<li class="nav-item dropdown">#}
+                            {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                                {#Photographers#}
+                            {#</a>#}
+                            {#<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">#}
+                                {#<a class="dropdown-item" href="#">Ameg Photo</a>#}
+                                {#<a class="dropdown-item" href="#">Photographer 2</a>#}
+                                {#<a class="dropdown-item" href="#">Photographer 3</a>#}
+                            {#</div>#}
+                        {#</li>#}
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('app_contact')}}">Contact me</a>
                         </li>
@@ -60,9 +58,15 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUserMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-user"></i> {{ app.user.username }}
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownUserMenu">
-                                    <a class="dropdown-item" href="{{ path('app_userProfile', {'userID':app.user.id}) }}">Your profile</a>
-                                    <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownUserMenu">
+                                    <a class="dropdown-item" href="{{ path('app_userProfile', {'userName':app.user.username}) }}">
+                                        <i class="fas fa-user-circle"></i> Your profile</a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <a class="dropdown-item" href="{{ path('app_userList') }}">
+                                        <i class="fas fa-users"></i>User list</a>
+                                    {% endif %}
+                                    <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                        <i class="fas fa-sign-out-alt"></i> Logout</a>
                                 </div>
                             </li>
                         {% endif %}
