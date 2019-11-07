@@ -27,13 +27,14 @@ class UserProfileFormType extends AbstractType
                 'label' => 'Profile picture',
                 'mapped' => false,
                 'data_class' => null,
+                'help' => 'Square picture will look best!',
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
-//                        'mimeTypes' => [
-//                            'application/pdf',
-//                            'application/x-pdf',
-//                        ],
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                        ],
                         'mimeTypesMessage' => 'Please upload a valid picture',
                     ])
                 ]

@@ -57,7 +57,7 @@ class UserController extends AbstractController
                 );
 
                 $user->setAvatar($fileName);
-                $this->addFlash('success', 'Avatar changed successfully');
+                $this->addFlash('success', 'Profile picture changed successfully');
             }
             if ($password)
             {
