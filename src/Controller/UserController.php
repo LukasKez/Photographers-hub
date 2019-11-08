@@ -22,8 +22,6 @@ class UserController extends AbstractController
     {
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $userName]);
 
-        //authenticate
-
         if ($user == null) {
             return $this->redirectToRoute('app_index');
         }
@@ -69,7 +67,7 @@ class UserController extends AbstractController
                 }
                 else
                 {
-                    $this->addFlash('danger', 'To change password, enter your old password');
+                    $this->addFlash('danger', 'To change password, enter correct current password');
                 }
             }
 

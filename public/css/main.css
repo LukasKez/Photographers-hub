@@ -28,10 +28,21 @@ label.required:before {
 
 #grad1 {
   height: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   background-color: gray; /* For browsers that do not support gradients */
   background-image: linear-gradient(90deg, rgb(117 125 174), rgb(52 58 64)); /* Standard syntax (must be last) */
 }
 
 .table-hover tbody tr:hover td {
   color: white;
+}
+
+.main-header {
+    margin-bottom: 20px;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #565656;
+  margin-bottom: 20px;
 }

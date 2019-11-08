@@ -3,11 +3,32 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h2>Register form</h2>
+    <h2 class="dark-text">Register form</h2>
+    <div id="grad1"></div>
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    {#<div class="row my-2">#}
+        {#<div class="col-md-4">#}
+            {#{{ form_widget(form.city) }}#}
+        {#</div>#}
+        {#<div class="col-md-4">#}
+            {#dada#}
+        {#</div>#}
+        {#<div class="col-md-4">#}
+        {#ada#}
+        {#</div>#}
+    {#</div>#}
     <div>
         <input type="submit" value="Register" class="btn btn-success"/>
     </div>
     {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/auto-complete.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2GD2BAGwscr_4Xh_btBgxT_bXN5KCeDI&libraries=places&callback=initAutocomplete"
+            async defer>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 {% endblock %}

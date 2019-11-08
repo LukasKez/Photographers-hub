@@ -17,6 +17,10 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_index');
+        }
+
         $form = $this->createForm(RegisterFormType::class);
 
         $form->handleRequest($request);
