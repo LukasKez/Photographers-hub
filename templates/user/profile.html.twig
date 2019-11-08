@@ -24,18 +24,38 @@
             </div>
         </div>
     </div>
-    <div id="grad1"></div>
 
 
     {% if app.user and app.user.id == user.id %}
-        <div class="py-4">
-            <h3 class="pb-1">Update your profile:</h3>
-            <div id="grad1"></div>
-            <button class="btn btn-info my-2" onclick="showForm()">Show/hide form</button>
+        <div>
+            <div class="row">
+                <div class="col-md-9">
+                    <h3 class="mb-3">Update your profile:</h3>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-info mb-3 float-right" onclick="showForm()">Show/Hide form</button>
+                </div>
+            </div>
+            <div class="border-bottom"></div>
             {{ form_start(form, {'attr': {'id': 'hidden-form', 'style':'display:none'}}) }}
-            {{ form_widget(form) }}
-            <div>
-                <input type="submit" value="Update" id="user_profile_form-button" class="btn btn-success"/>
+            <div class="form-group">
+                <div class="row mb-3">
+                    <div class="col-5">
+                        {{ form_widget(form.is_photographer) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.avatar) }}:
+                    </div>
+                    <div class="col-5">
+                        {{ form_widget(form.avatar) }}
+                        {{ form_help(form.avatar) }}
+                    </div>
+                </div>
+                <h4 class="my-3">Change password:</h4>
+                {{ form_widget(form) }}
+                <div>
+                    <input type="submit" value="Update" id="user_profile_form-button" class="btn btn-success"/>
+                </div>
             </div>
             {{ form_end(form) }}
         </div>

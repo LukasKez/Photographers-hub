@@ -43,6 +43,35 @@ class RegisterFormType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => false
             ])
+            ->add('address', TextType::class, [
+                'required' => true,
+                'mapped' => false,
+                'help' => 'Start typing your city for auto complete'
+            ])
+            ->add('city',TextType::class,[
+                //'disabled' => true,
+                'required' => true,
+                'attr' => [
+                    'class' => 'locality',
+                    'readonly' => true,
+                ]
+            ])
+            ->add('state',TextType::class,[
+                //'disabled' => true,
+                'required' => true,
+                'attr' => [
+                    'class' => 'administrative_area_level_1',
+                    'readonly' => true,
+                ]
+            ])
+            ->add('country',TextType::class,[
+                //'disabled' => true,
+                'required' =>true,
+                'attr' => [
+                    'class' => 'country',
+                    'readonly' => true,
+                ]
+            ])
         ;
     }
 
