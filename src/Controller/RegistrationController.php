@@ -33,6 +33,7 @@ class RegistrationController extends AbstractController
                 $form->get('password_hash')->getData()
             ));
             $user->setIsPhotographer(false);
+            $user->setAvatar(null);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

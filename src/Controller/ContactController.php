@@ -26,10 +26,10 @@ class ContactController extends AbstractController
 
             if (empty($contactFormData['name']) || empty($contactFormData['email']) || empty($contactFormData['subject']) || empty($contactFormData['message'])) {
                 $this->addFlash('danger', 'Error: Fields must not be empty');
-                $this->redirectToRoute('contact');
+                $this->redirectToRoute('app_contact');
             } elseif (!preg_match($email_pattern,$contactFormData['email'])) {
                 $this->addFlash('danger', 'Error: Incorrect email');
-                $this->redirectToRoute('contact');
+                $this->redirectToRoute('app_contact');
             } else {
                 $message = (new \Swift_Message('Contact form: from ' . $contactFormData['name'] . ' subject: ' . $contactFormData['subject']))
                     ->setFrom($contactFormData['email'])

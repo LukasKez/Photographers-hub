@@ -28,6 +28,8 @@ class UserProfileFormType extends AbstractType
                 'mapped' => false,
                 'data_class' => null,
                 'help' => 'Square picture will look best!',
+                'attr' => [
+                    'accept' => 'image/*'],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',

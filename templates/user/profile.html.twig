@@ -1,79 +1,89 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User profile{% endblock %}
+{% block title %}
+	{{user.username}}
+	profile
+{% endblock %}
 
 {% block body %}
-    <h1 class="dark-text">{{ user.username }} profile</h1>
-    <div id="grad1"></div>
+	<h1 class="dark-text">{{ user.username }}
+		profile</h1>
+	<div id="grad1"></div>
 
-    <div class="col-md-12 my-4">
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-7">
-                <h5 class="pb-3">Name: {{ user.name }}</h5>
-                {% if app.user and app.user.id == user.id %}
-                    <h5 class="pb-3">Email: {{ user.email }}</h5>
-                {% endif %}
-                <h5 class="pb-3">Location: </h5>
-            </div>
-            <div class="col-md-4">
-                {% if user.avatar %}
-                    <img src="{{ asset('uploads/avatars/' ~ user.avatar) }}"
-                         class="rounded" height="250" width="250">
-                {% endif %}
-            </div>
-        </div>
-    </div>
+	<div class="col-md-12 my-4">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-7">
+				{% if user.name %}
+					<h5 class="pb-3">Name:
+						{{ user.name }}</h5>
+				{% endif %}
+				<h5 class="pb-3">Email:
+					{{ user.email }}</h5>
+				<h5 class="pb-3">Location:
+					{{user.city}},
+					{{user.country}}</h5>
+				{% if user.isPhotographer %}
+					<a href="{{ path('app_userGallery', {'username':user.username}) }}" class="btn btn-primary">Go to gallery</a>
+				{% endif %}
+			</div>
+			<div class="col-md-4">
+				{% if user.avatar %}
+					<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="rounded" height="250" width="250">
+				{% endif %}
+			</div>
+		</div>
+	</div>
 
 
-    {% if app.user and app.user.id == user.id %}
-        <div>
-            <div class="row">
-                <div class="col-md-9">
-                    <h3 class="mb-3">Update your profile:</h3>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-info mb-3 float-right" onclick="showForm()">Show/Hide form</button>
-                </div>
-            </div>
-            <div class="border-bottom"></div>
-            {{ form_start(form, {'attr': {'id': 'hidden-form', 'style':'display:none'}}) }}
-            <div class="form-group">
-                <div class="row mb-3">
-                    <div class="col-5">
-                        {{ form_widget(form.is_photographer) }}
-                    </div>
-                    <div class="col-2">
-                        {{ form_label(form.avatar) }}:
-                    </div>
-                    <div class="col-5">
-                        {{ form_widget(form.avatar) }}
-                        {{ form_help(form.avatar) }}
-                    </div>
-                </div>
-                <h4 class="my-3">Change password:</h4>
-                {{ form_widget(form) }}
-                <div>
-                    <input type="submit" value="Update" id="user_profile_form-button" class="btn btn-success"/>
-                </div>
-            </div>
-            {{ form_end(form) }}
-        </div>
-    {% endif %}
+	{% if app.user and app.user.id == user.id %}
+		<div>
+			<div class="row">
+				<div class="col-md-9">
+					<h3 class="mb-3">Update your profile:</h3>
+				</div>
+				<div class="col-md-3">
+					<button class="btn btn-info mb-3 float-right" onclick="showForm()">Show/Hide form</button>
+				</div>
+			</div>
+			<div class="border-bottom"></div>
+			{{ form_start(form, {'attr': {'id': 'hidden-form', 'style':'display:none'}}) }}
+			<div class="form-group">
+				<div class="row mb-3">
+					<div class="col-5">
+						{{ form_widget(form.is_photographer) }}
+					</div>
+					<div class="col-2">
+						{{ form_label(form.avatar) }}:
+					</div>
+					<div class="col-5">
+						{{ form_widget(form.avatar) }}
+						{{ form_help(form.avatar) }}
+					</div>
+				</div>
+				<h4 class="my-3">Change password:</h4>
+				{{ form_widget(form) }}
+				<div>
+					<input type="submit" value="Update" id="user_profile_form-button" class="btn btn-success"/>
+				</div>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script>
-        function showForm() {
-            var form = document.getElementById("hidden-form");
-            if (form.style.display === "none") {
-                form.style.display = "block";
-                //bttn.style.display = "block";
-            } else {
-                form.style.display = "none";
-                //bttn.style.display = "none";
-            }
-        }
-    </script>
+	{{ parent() }}
+	<script>
+		function showForm() {
+var form = document.getElementById("hidden-form");
+if (form.style.display === "none") {
+form.style.display = "block";
+// bttn.style.display = "block";
+} else {
+form.style.display = "none";
+// bttn.style.display = "none";
+}
+}
+	</script>
 {% endblock %}

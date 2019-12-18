@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{user.username}}
+	gallery
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-10">
+			<h1 class="dark-text">{{ user.username }}
+				Gallery</h1>
+		</div>
+		<div class="col-2">
+        {% if app.user.username == user.username %}
+			<a href="{{ path('app_userGalleryUpload', {'username':user.username}) }}" class="btn btn-primary">Upload pictures</a>
+        {% endif %}
+		</div>
+	</div>
+	<div id="grad1"></div>
+
+    {% if images %}
+        {% for image in images %}
+        <img src="{{ asset('uploads/gallery/' ~ image.name) }}" class="rounded my-1 mx-1" height="210" width="210">
+    {% endfor %}
+    {% else %}
+        <p>User has not uploaded any pictures to his gallery</p>
+    {% endif %}
+    
+{% endblock %}

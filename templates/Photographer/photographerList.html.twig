@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1 class="dark-text">Photographers</h1>
+	<div id="grad1"></div>
+
+	{% for user in users %}
+		<div class="card text-white bg-dark my-3">
+			<a href="{{ path('app_userGallery', {'username':user.username}) }}" class="stretched-link"></a>
+			<div class="card-header">
+				<div class="row">
+					<div class="col-4">
+						<p class="" style="font-size:20px">{{ user.username }}</p>
+					</div>
+					<div class="text-muted col-8">
+						<p>{{ user.city }},
+							{{ user.country }}</p>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-2">
+                        {# avatar #}
+							{% if user.avatar %}
+								<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="" style="border-radius: 50%;max-width:150px;height:auto;" >
+							{% endif %}
+						</div>
+                        {# pictures #}
+						{% for img in user.getImages() | slice(0,5) %}
+							<div class="col-sm-2 my-1">
+								<img src="{{ asset('uploads/gallery/' ~ img.name) }}" class="rounded" style="max-width:170px;height:auto">
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}
