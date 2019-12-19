@@ -11,15 +11,8 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="app_index")
      */
-    public function show()
+    public function index()
     {
-        $users = $this->getDoctrine()->getRepository(User::class)->findBy(
-                ['isPhotographer' => 1]
-            );
-
-        return $this->render('index.html.twig',
-            [
-                'users' => $users,
-            ]);
+        return $this->render('index.html.twig');
     }
 }

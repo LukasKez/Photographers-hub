@@ -7,24 +7,29 @@
 
 {% block body %}
 	<div class="row">
-		<div class="col-10">
+		<div class="col-8">
 			<h1 class="dark-text">{{ user.username }}
 				Gallery</h1>
 		</div>
 		<div class="col-2">
-        {% if app.user.username == user.username %}
-			<a href="{{ path('app_userGalleryUpload', {'username':user.username}) }}" class="btn btn-primary">Upload pictures</a>
-        {% endif %}
+			{% if app.user and app.user.username == user.username %}
+				<a href="{{ path('app_userGalleryUpload', {'username':user.username}) }}" class="btn btn-primary">Upload pictures</a>
+			{% endif %}
+		</div>
+		<div class="col-2">
+			<a href="{{ path('app_userProfile', {'userName':user.username}) }}" class="btn btn-primary">Visit profile</a>
 		</div>
 	</div>
 	<div id="grad1"></div>
 
-    {% if images %}
-        {% for image in images %}
-        <img src="{{ asset('uploads/gallery/' ~ image.name) }}" class="rounded my-1 mx-1" height="210" width="210">
-    {% endfor %}
-    {% else %}
-        <p>User has not uploaded any pictures to his gallery</p>
-    {% endif %}
-    
+	{% if images %}
+		{% for image in images %}
+			<a href="{{ path('app_viewPhoto', {'imageName':image.name}) }}">
+				<img src="{{ asset('uploads/gallery/' ~ image.name) }}" class="rounded my-1 mx-1 zoom" height="210" width="210">
+			</a>
+		{% endfor %}
+	{% else %}
+		<p>User has not uploaded any pictures to his gallery yet</p>
+	{% endif %}
+
 {% endblock %}

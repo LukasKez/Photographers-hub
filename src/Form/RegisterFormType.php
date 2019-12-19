@@ -40,8 +40,9 @@ class RegisterFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('name', TextType::class, [
-                'required' => false
+            ->add('name', null, [
+                'required' => false,
+                'help' => 'Enter your full name',
             ])
             ->add('address', TextType::class, [
                 'required' => true,
@@ -49,7 +50,6 @@ class RegisterFormType extends AbstractType
                 'help' => 'Start typing your city for auto complete'
             ])
             ->add('city',TextType::class,[
-                //'disabled' => true,
                 'required' => true,
                 'attr' => [
                     'class' => 'locality',
@@ -57,7 +57,6 @@ class RegisterFormType extends AbstractType
                 ]
             ])
             ->add('state',TextType::class,[
-                //'disabled' => true,
                 'required' => true,
                 'attr' => [
                     'class' => 'administrative_area_level_1',
@@ -65,7 +64,6 @@ class RegisterFormType extends AbstractType
                 ]
             ])
             ->add('country',TextType::class,[
-                //'disabled' => true,
                 'required' =>true,
                 'attr' => [
                     'class' => 'country',

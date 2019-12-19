@@ -1,15 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{# {% block title %}{% endblock %} #}
-
 {% block body %}
     <h1>Welcome, to the Photographers Hub</h1>
     <p>Here you will be able to find the most creative and skilled photographers. Want to become a part of this
     community? Go ahead and <a href="{{ path('app_register') }}">register</a>!</p>
-
-    <p>Here's a list of currently registered photographers:</p>
-    {% for user in users %}
-        <a href="{{ path('app_userProfile', { 'userName' : user.username } ) }}">{{ user.username }}</a><br>
-    {% endfor %}
-
+    <p>Looking for a photographer? Check out the list of our hub members <a href="{{ path('app_photographers') }}">here</a> or by navigating through the navigation bar!</p>
 {% endblock %}
