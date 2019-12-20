@@ -13,7 +13,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="app_contact")
      */
-    public function index(Request $request, \Swift_Mailer $mailer)
+    public function conatct(Request $request, \Swift_Mailer $mailer)
     {
         $form = $this->createForm(ContactFormType::class);
 

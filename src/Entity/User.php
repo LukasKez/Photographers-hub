@@ -65,12 +65,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20, nullable=true)
      * @Assert\Length(
      *     min=2,
-     *     max = 20,
+     *     max = 50,
      *     minMessage="Your first name has to contain at least 2 characters",
-     *     maxMessage="Your first name can't contain more than 20 characters"
+     *     maxMessage="Your first name can't contain more than 50 characters"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-zA-Z]+$/",
+     *     pattern="/^[a-žA-Ž\s]+$/",
      *     message="Your name has to contain only alphabetic values"
      * )
      */

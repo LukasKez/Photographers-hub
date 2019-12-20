@@ -77,6 +77,11 @@ class GalleryController extends AbstractController
      */
     public function deletePhoto($imageName)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_index');
+        } else {
+            $loggedUser = $this->getUser();
+        }
         $em = $this->getDoctrine()->getManager();
         $image = $em->getRepository(Image::class)->findOneBy([
             'name' => $imageName
@@ -84,17 +89,24 @@ class GalleryController extends AbstractController
 
         if ($image != null) {
             $user = $image->getUser();
-            $fileSystem = new Filesystem();
-            $fileSystem->remove($this->getParameter('gallery_directory') . '/' . $image->getName());
+            if ($user == $loggedUser || array_values($loggedUser->getRoles())[0] == "ROLE_ADMIN") {
+                $fileSystem = new Filesystem();
+                $fileSystem->remove($this->getParameter('gallery_directory') . '/' . $image->getName());
 
-            $em->remove($image);
-            $em->flush();
+                $em->remove($image);
+                $em->flush();
 
-            $this->addFlash('success', 'Image successfully deleted');
+                $this->addFlash('success', 'Image successfully deleted');
 
-            return $this->redirectToRoute("app_userGallery", [
-                'username' => $user->getUsername()
-            ]);
+                return $this->redirectToRoute("app_userGallery", [
+                    'username' => $user->getUsername()
+                ]);
+            } else {
+                $this->addFlash('danger', 'You can\'t do that!');
+                return $this->redirectToRoute("app_userGallery", [
+                    'username' => $user->getUsername()
+                ]);
+            }
         }
     }
 
@@ -110,6 +122,16 @@ class GalleryController extends AbstractController
 
         if ($user == null) {
             return $this->redirectToRoute('app_index');
+        }
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_index');
+        } else {
+            $loggedUser = $this->getUser();
+            if ($user != $loggedUser) {
+                $this->addFlash('danger', 'You don\'t have permission to do that!');
+                return $this->redirectToRoute('app_index');
+            }
         }
 
         $form = $this->createForm(ImageUploadFormType::class);
