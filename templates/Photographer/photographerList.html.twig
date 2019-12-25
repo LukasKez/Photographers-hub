@@ -4,6 +4,17 @@
 	<h1 class="dark-text">Photographers</h1>
 	<div id="grad1"></div>
 
+	<div>
+		<form action="" method="get">
+			<label for="filter">City</label>
+			<input name="filter" type="text">
+			<button type="submit" class="btn btn-primary btn-sm">Filter</button>
+		</form>
+	</div>
+	{% if users is empty %}
+		<p>There are no photographers registered yet</p>
+	{% endif %}
+
 	{% for user in users %}
 		<div class="card text-white bg-dark my-3">
 			<a href="{{ path('app_userGallery', {'username':user.username}) }}" class="stretched-link"></a>

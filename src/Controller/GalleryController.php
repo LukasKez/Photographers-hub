@@ -20,15 +20,24 @@ class GalleryController extends AbstractController
     /**
      * @Route("/photographers", name="app_photographers")
      */
-    public function photographerList()
+    public function photographerList(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository(User::class)->findBy(
             ['isPhotographer' => true]
         );
 
+        $queryBuilder = $em->getRepository(User::class)->createQueryBuilder('user');
+
+        if ($request->query->getAlnum('filter')) {
+            $queryBuilder
+                ->where('user.city LIKE :city')
+                ->setParameter('city', '%' . $request->query->getAlnum('filter') . '%');
+        }
+        $query = $queryBuilder->getQuery()->getResult();
+
         return $this->render('Photographer/photographerList.html.twig', [
-            'users' => $users,
+            'users' => $query,
         ]);
     }
 
