@@ -4,15 +4,20 @@
 	<h1 class="dark-text">Photographers</h1>
 	<div id="grad1"></div>
 
-	<div>
-		<form action="" method="get">
-			<label for="filter">City</label>
-			<input name="filter" type="text">
+	<div class="form-group row justify-content-center align-items-center">
+		<form action="" method="get" class="form-inline">
+		<div class="mx-1">
+			<input name="filter" type="text" class="form-control form-control-sm" placeholder="City/State/Country">
+			</div>
+			<div class="mx-1">
 			<button type="submit" class="btn btn-primary btn-sm">Filter</button>
+			</div>
 		</form>
 	</div>
+
 	{% if users is empty %}
-		<p>There are no photographers registered yet</p>
+		<p>The photographer list is empty! Check your filter and try again</p>
+		{{ app.request.query.get("page") }}
 	{% endif %}
 
 	{% for user in users %}
@@ -39,7 +44,7 @@
                         {# pictures #}
 						{% for img in user.getImages() | slice(0,5) %}
 							<div class="col-sm-2 my-1">
-								<img src="{{ asset('uploads/gallery/' ~ img.name) }}" class="rounded" style="max-width:170px;height:auto">
+								<img src="{{ asset('uploads/gallery/' ~ img.name) }}" class="rounded" style="width:170px;height:170px;">
 							</div>
 						{% endfor %}
 					</div>
@@ -47,4 +52,8 @@
 			</div>
 		</div>
 	{% endfor %}
+
+	<div class="navigation row justify-content-center align-items-center">
+        {{ knp_pagination_render(users) }}
+    </div>
 {% endblock %}

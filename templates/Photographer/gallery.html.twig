@@ -28,6 +28,9 @@
 				<img src="{{ asset('uploads/gallery/' ~ image.name) }}" class="rounded my-1 mx-1 zoom" height="210" width="210">
 			</a>
 		{% endfor %}
+		<div class="navigation row justify-content-center align-items-center">
+        	{{ knp_pagination_render(images) }}
+    	</div>
 	{% else %}
 		<p>User has not uploaded any pictures to his gallery yet</p>
 	{% endif %}

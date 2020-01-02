@@ -14,37 +14,49 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class GalleryController extends AbstractController
 {
     /**
      * @Route("/photographers", name="app_photographers")
      */
-    public function photographerList(Request $request)
+    public function photographerList(Request $request, PaginatorInterface $paginator)
     {
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository(User::class)->findBy(
-            ['isPhotographer' => true]
-        );
+        // $users = $em->getRepository(User::class)->findBy(
+        //     ['isPhotographer' => true]
+        // );
 
         $queryBuilder = $em->getRepository(User::class)->createQueryBuilder('user');
 
         if ($request->query->getAlnum('filter')) {
             $queryBuilder
-                ->where('user.city LIKE :city')
-                ->setParameter('city', '%' . $request->query->getAlnum('filter') . '%');
+                ->where('user.city LIKE :filter')
+                ->orWhere('user.country LIKE :filter')
+                ->orWhere('user.state LIKE :filter')
+                ->andWhere('user.isPhotographer = 1')
+                ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
+            //$users = $queryBuilder->getQuery()->getResult();
         }
-        $query = $queryBuilder->getQuery()->getResult();
+        $users = $paginator->paginate(
+            // Doctrine Query, not results
+            $queryBuilder,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            3
+        );
 
         return $this->render('Photographer/photographerList.html.twig', [
-            'users' => $query,
+            'users' => $users,
         ]);
     }
 
     /**
      * @Route("/photographers/{username}/gallery", name="app_userGallery")
      */
-    public function photographerGallery($username)
+    public function photographerGallery($username, PaginatorInterface $paginator, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->findOneBy([
@@ -55,9 +67,23 @@ class GalleryController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-        $images = $em->getRepository(Image::class)->findBy(
-            ['user' => $user->getId()]
+        // $images = $em->getRepository(Image::class)->findBy(
+        //     ['user' => $user->getId()]
+        // );
+        $queryBuilder = $em->getRepository(Image::class)->createQueryBuilder('image');
+        $queryBuilder
+                ->where('image.user = :userId')
+                ->setParameter('userId', $user->getId() );
+
+        $images = $paginator->paginate(
+            // Doctrine Query, not results
+            $queryBuilder,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            30
         );
+
         return $this->render('Photographer/gallery.html.twig', [
             'user' => $user,
             'images' => $images,
