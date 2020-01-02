@@ -45,7 +45,7 @@ class GalleryController extends AbstractController
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            3
+            5
         );
 
         return $this->render('Photographer/photographerList.html.twig', [

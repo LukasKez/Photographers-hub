@@ -67,3 +67,16 @@ label.required:before {
   max-height: 80vh;
   margin: auto;
 }
+
+.page-item.active .page-link {
+  background-color: rgb(117 125 174);
+  border-color: rgb(117 125 174);
+}
+
+.page-link {
+  color: rgb(117 125 174);
+}
+
+.page-link:hover {
+  color: rgb(117 125 174);
+}
