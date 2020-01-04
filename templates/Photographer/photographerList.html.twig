@@ -36,17 +36,19 @@
 				<div class="card-body">
 					<div class="row">
                     	{# avatar #}
-						
-							<div class="col col-lg-3 col-xl-2 my-2">
+						<div class="col col-lg-3 col-xl-2 my-2">
 							{% if user.avatar %}
-								<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="img-fluid" style="border-radius: 50%;max-width:170px;height:auto;" alt="User-avatar">
-						{% endif %}
-							
-							</div>
+								<div class="center-vertical">
+									<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="image img-fluid" style="border-radius: 50%;vertical-align: middle;" alt="User-avatar">
+								</div>
+							{% endif %}
+						</div>
                         {# pictures #}
 						{% for img in user.getImages() | slice(0,5) %}
 							<div class="col col-md-4 col-lg-3 col-xl-2 my-1">
-								<img src="{{ asset('uploads/gallery/' ~ img.name) }}" class="img-fluid rounded" style="max-width:170px;height:auto;" alt="User's picture sample">
+								<div class="center-vertical">
+									<img src="{{ asset('uploads/gallery/' ~ img.name) }}" class="image img-fluid rounded" style="vertical-align: middle;" alt="User's picture sample">
+								</div>
 							</div>
 						{% endfor %}
 					</div>

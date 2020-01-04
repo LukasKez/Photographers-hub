@@ -80,3 +80,24 @@ label.required:before {
 .page-link:hover {
   color: rgb(117 125 174);
 }
+
+.center-vertical {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.image {
+  /* max-height: 200px; */
+  max-width: 170px;
+  max-height: 250px;
+  height: auto;
+  width: auto;
+}
+
+.profile-image {
+  max-height: 350px;
+  max-width: 250px;
+  height: auto;
+  width: auto;
+}

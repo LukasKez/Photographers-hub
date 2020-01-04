@@ -27,7 +27,6 @@ class UserProfileFormType extends AbstractType
                 'label' => 'Profile picture',
                 'mapped' => false,
                 'data_class' => null,
-                'help' => 'Square picture will look best!',
                 'attr' => [
                     'accept' => 'image/*'],
                 'constraints' => [

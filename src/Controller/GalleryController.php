@@ -27,15 +27,14 @@ class GalleryController extends AbstractController
 
         $queryBuilder = $em->getRepository(User::class)->createQueryBuilder('user');
 
-        if ($request->query->getAlnum('filter')) {
-            $queryBuilder
-                ->where('user.city LIKE :filter')
-                ->orWhere('user.country LIKE :filter')
-                ->orWhere('user.state LIKE :filter')
-                ->andWhere('user.isPhotographer = 1')
-                ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
-            //$users = $queryBuilder->getQuery()->getResult();
-        }
+        $queryBuilder
+            ->where('user.city LIKE :filter')
+            ->orWhere('user.country LIKE :filter')
+            ->orWhere('user.state LIKE :filter')
+            ->andWhere('user.isPhotographer = 1')
+            ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
+
+        //$users = $queryBuilder->getQuery()->getResult();
 
         $users = $paginator->paginate(
             // Doctrine Query, not results
@@ -79,7 +78,7 @@ class GalleryController extends AbstractController
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            30
+            20
         );
 
         return $this->render('Photographer/gallery.html.twig', [
@@ -162,8 +161,8 @@ class GalleryController extends AbstractController
         if (!$loggedUser) {
             return $this->redirectToRoute('app_index');
         } elseif ($user != $loggedUser) {
-                $this->addFlash('danger', 'You don\'t have permission to do that!');
-                return $this->redirectToRoute('app_index');
+            $this->addFlash('danger', 'You don\'t have permission to do that!');
+            return $this->redirectToRoute('app_index');
         }
 
         $form = $this->createForm(ImageUploadFormType::class);
