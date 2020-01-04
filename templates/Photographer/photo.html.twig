@@ -15,10 +15,13 @@
         {% endif %}
 		</div>
 	</div>
+	<div>
+		<p>Upload date: {{image.uploadedAt|date("m/d/Y")}}</p>
+	</div>
 <div id="grad1"></div>
 
 	<div class="text-center">
-		<img src="{{ asset('uploads/gallery/' ~ image.name) }}" class="rounded my-1 mx-1 center-fit ">
+		<img src="{{ asset('uploads/gallery/' ~ image.name) }}" class="rounded my-1 mx-1 center-fit" alt="full-sized picture">
 	</div>
 {% endblock %}
 

@@ -7,30 +7,31 @@
 
 {% block body %}
 	<div class="row">
-		<div class="col-8">
+		<div class="col-12 col-md-8">
 			<h1 class="dark-text">{{ user.username }}
 				Gallery</h1>
 		</div>
-		<div class="col-2">
+		<div class="col-6 col-md-2">
 			{% if app.user and app.user.username == user.username %}
-				<a href="{{ path('app_userGalleryUpload', {'username':user.username}) }}" class="btn btn-primary">Upload pictures</a>
+				<a href="{{ path('app_userGalleryUpload', {'username':user.username}) }}" class="btn btn-primary ml-auto">Upload pictures</a>
 			{% endif %}
 		</div>
-		<div class="col-2">
-			<a href="{{ path('app_userProfile', {'userName':user.username}) }}" class="btn btn-primary">Visit profile</a>
+		<div class="col-6 col-md-2">
+			<a href="{{ path('app_userProfile', {'userName':user.username}) }}" class="btn btn-primary float-right">Visit profile</a>
 		</div>
 	</div>
 	<div id="grad1"></div>
-
+	<div class="navigation row justify-content-center align-items-center">
 	{% if images %}
 		{% for image in images %}
 			<a href="{{ path('app_viewPhoto', {'imageName':image.name}) }}">
 				<img src="{{ asset('uploads/gallery/' ~ image.name) }}" class="rounded my-1 mx-1 zoom" height="210" width="210">
 			</a>
 		{% endfor %}
-		<div class="navigation row justify-content-center align-items-center">
+		</div>
         	{{ knp_pagination_render(images) }}
     	</div>
+		</div>
 	{% else %}
 		<p>User has not uploaded any pictures to his gallery yet</p>
 	{% endif %}

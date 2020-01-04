@@ -24,9 +24,6 @@ class GalleryController extends AbstractController
     public function photographerList(Request $request, PaginatorInterface $paginator)
     {
         $em = $this->getDoctrine()->getManager();
-        // $users = $em->getRepository(User::class)->findBy(
-        //     ['isPhotographer' => true]
-        // );
 
         $queryBuilder = $em->getRepository(User::class)->createQueryBuilder('user');
 
@@ -39,6 +36,7 @@ class GalleryController extends AbstractController
                 ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
             //$users = $queryBuilder->getQuery()->getResult();
         }
+
         $users = $paginator->paginate(
             // Doctrine Query, not results
             $queryBuilder,
@@ -72,8 +70,8 @@ class GalleryController extends AbstractController
         // );
         $queryBuilder = $em->getRepository(Image::class)->createQueryBuilder('image');
         $queryBuilder
-                ->where('image.user = :userId')
-                ->setParameter('userId', $user->getId() );
+            ->where('image.user = :userId')
+            ->setParameter('userId', $user->getId());
 
         $images = $paginator->paginate(
             // Doctrine Query, not results
@@ -159,14 +157,13 @@ class GalleryController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-        if (!$this->getUser()) {
+        $loggedUser = $this->getUser();
+
+        if (!$loggedUser) {
             return $this->redirectToRoute('app_index');
-        } else {
-            $loggedUser = $this->getUser();
-            if ($user != $loggedUser) {
+        } elseif ($user != $loggedUser) {
                 $this->addFlash('danger', 'You don\'t have permission to do that!');
                 return $this->redirectToRoute('app_index');
-            }
         }
 
         $form = $this->createForm(ImageUploadFormType::class);

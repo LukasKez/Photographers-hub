@@ -24,12 +24,12 @@
 					{{user.city}},
 					{{user.country}}</h5>
 				{% if user.isPhotographer %}
-					<a href="{{ path('app_userGallery', {'username':user.username}) }}" class="btn btn-primary">Go to gallery</a>
+					<a href="{{ path('app_userGallery', {'username':user.username}) }}" class="btn btn-primary my-2">Go to gallery</a>
 				{% endif %}
 			</div>
-			<div class="col-md-4">
+			<div class="col col-md-4">
 				{% if user.avatar %}
-					<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="rounded" height="250" width="250">
+					<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="rounded" height="250" width="250" alt="Profile picture">
 				{% endif %}
 			</div>
 		</div>
@@ -39,10 +39,10 @@
 	{% if app.user and app.user.id == user.id %}
 		<div>
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col col-md-9">
 					<h3 class="mb-3">Update your profile:</h3>
 				</div>
-				<div class="col-md-3">
+				<div class="col col-md-3">
 					<button class="btn btn-primary mb-3 float-right" onclick="showForm()">Show/Hide form</button>
 				</div>
 			</div>

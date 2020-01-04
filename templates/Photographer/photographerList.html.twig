@@ -5,7 +5,7 @@
 	<div id="grad1"></div>
 
 	<div class="form-group row justify-content-center align-items-center">
-		<form action="" method="get" class="form-inline">
+		<form action="{{ path('app_photographers') }}" method="get" class="form-inline">
 		<div class="mx-1">
 			<input name="filter" type="text" class="form-control form-control-sm" placeholder="City/State/Country">
 			</div>
@@ -35,16 +35,18 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-2">
-                        {# avatar #}
+                    	{# avatar #}
+						
+							<div class="col col-lg-3 col-xl-2 my-2">
 							{% if user.avatar %}
-								<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="" style="border-radius: 50%;max-width:150px;height:auto;" >
-							{% endif %}
-						</div>
+								<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" class="img-fluid" style="border-radius: 50%;max-width:170px;height:auto;" alt="User-avatar">
+						{% endif %}
+							
+							</div>
                         {# pictures #}
 						{% for img in user.getImages() | slice(0,5) %}
-							<div class="col-sm-2 my-1">
-								<img src="{{ asset('uploads/gallery/' ~ img.name) }}" class="rounded" style="width:170px;height:170px;">
+							<div class="col col-md-4 col-lg-3 col-xl-2 my-1">
+								<img src="{{ asset('uploads/gallery/' ~ img.name) }}" class="img-fluid rounded" style="max-width:170px;height:auto;" alt="User's picture sample">
 							</div>
 						{% endfor %}
 					</div>

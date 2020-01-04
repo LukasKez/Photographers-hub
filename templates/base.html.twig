@@ -53,10 +53,12 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownUserMenu">
                                     <a class="dropdown-item" href="{{ path('app_userProfile', {'userName':app.user.username}) }}">
-                                        <i class="fas fa-user-circle"></i> Your profile</a>
+                                        <i class="fas fa-user-circle"></i> Profile</a>
+                                    <a class="dropdown-item" href="{{ path('app_userGallery', {'username':app.user.username}) }}">
+                                        <i class="fas fa-images"></i> Gallery</a>
                                     {% if is_granted('ROLE_ADMIN') %}
                                     <a class="dropdown-item" href="{{ path('app_userList') }}">
-                                        <i class="fas fa-users"></i>User list</a>
+                                        <i class="fas fa-users"></i> User list</a>
                                     {% endif %}
                                     <a class="dropdown-item" href="{{ path('app_logout') }}">
                                         <i class="fas fa-sign-out-alt"></i> Logout</a>
