@@ -2,16 +2,16 @@
 
 {% block body %}
 	<div class="row my-3">
-		<div class="col-5 " style="font-size:24px">
+		<div class="col col-sm-5 " style="font-size:24px">
 			Author:
 			<a href="{{ path('app_userProfile', {'userName':user.username}) }}" class="dark-text">{{user.username}}</a>
 		</div>
-		<div class="col-5">
+		<div class="col col-sm-5">
 			<a href="{{ path('app_userGallery', {'username':user.username}) }}" class="btn btn-primary">Visit gallery</a>
 		</div>
-		<div class="col-2">
+		<div class="col col-sm-2">
         {% if app.user and (app.user == user or is_granted('ROLE_ADMIN')) %}
-			<a href="{{ path('app_deletePhoto', {'imageName':image.name}) }}" class="btn btn-danger js-delete-btn">Delete</a>
+			<a href="{{ path('app_deletePhoto', {'imageName':image.name}) }}" class="btn btn-danger js-delete-btn float-right">Delete</a>
         {% endif %}
 		</div>
 	</div>

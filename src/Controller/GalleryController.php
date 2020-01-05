@@ -33,7 +33,11 @@ class GalleryController extends AbstractController
             ->orWhere('user.state LIKE :filter')
             ->andWhere('user.isPhotographer = 1')
             ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
-
+        
+        $filter = '';
+        if (!empty($_GET['filter'])){
+            $filter = $_GET['filter'];
+        }
         //$users = $queryBuilder->getQuery()->getResult();
 
         $users = $paginator->paginate(
@@ -47,6 +51,7 @@ class GalleryController extends AbstractController
 
         return $this->render('Photographer/photographerList.html.twig', [
             'users' => $users,
+            'active_filter' => $filter,
         ]);
     }
 
@@ -78,7 +83,7 @@ class GalleryController extends AbstractController
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            20
+            21
         );
 
         return $this->render('Photographer/gallery.html.twig', [

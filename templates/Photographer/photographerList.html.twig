@@ -7,7 +7,7 @@
 	<div class="form-group row justify-content-center align-items-center">
 		<form action="{{ path('app_photographers') }}" method="get" class="form-inline">
 		<div class="mx-1">
-			<input name="filter" type="text" class="form-control form-control-sm" placeholder="City/State/Country">
+			<input name="filter" type="text" class="form-control form-control-sm" placeholder="City/State/Country" value={{active_filter}}>
 			</div>
 			<div class="mx-1">
 			<button type="submit" class="btn btn-primary btn-sm">Filter</button>
