@@ -85,6 +85,7 @@ class SecurityController extends AbstractController
 
         return $this->render('baseForm.html.twig', [
             'form' => $form->createView(),
+            'title' => 'Reset password',
         ]);
     }
 
@@ -140,6 +141,7 @@ class SecurityController extends AbstractController
 
         return $this->render('baseForm.html.twig', [
             'form' => $form->createView(),
+            'title' => 'Reset password',
         ]);
     }
 
