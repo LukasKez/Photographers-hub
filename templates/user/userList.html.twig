@@ -21,7 +21,8 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td><a href="{{ path('app_userProfile', {'userName':user.username}) }}" class="dark-text">{{ user.username }}</a></td>
+                <td><a href="{{ path('app_userProfile', {'userName':user.username}) }}"
+                       class="dark-text">{{ user.username }}</a></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.isPhotographer==1 ? 'Enabled' : 'Disabled' }}</td>
